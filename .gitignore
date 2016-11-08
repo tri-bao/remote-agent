@@ -1,0 +1,8 @@
+/bin
+/target
+/.classpath
+/output
+/.settings
+/tmp
+/production-staging
+/dependency-reduced-pom.xml
