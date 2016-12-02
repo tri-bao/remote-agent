@@ -40,16 +40,23 @@ public class AddNewHardDriveInstaller extends AbstractOsInstaller {
 	protected void performInternal() throws Exception {
 		// Here is the procedure for doing this manually
 		//  df -h
-		//  sudo lshw -C disk
+		//  sudo lsblk
 		//	==> determine logical name of the new disk (ex: /dev/sdb)
 		// If this is a completely new disk
-		//	sudo mkfs.ext4 /dev/sdb
-		//	sudo tune2fs -m 0 /dev/sdb (reclaim all reserved blocks - 5%)
+		//  sudo sfdisk /dev/sdb
+		//		enter: 0,
+		//		just press enter for the rest of partition
+		//		answer y for the following question
+		//			Warning: no primary partition is marked bootable (active)
+		//			This does not matter for LILO, but the DOS MBR will not boot this disk.
+		//			Do you want to write this to disk? [ynq] y
+		//	sudo mkfs.ext4 /dev/sdb1
+		//	sudo tune2fs -m 0 /dev/sdb1 (reclaim all reserved blocks - 5%)
 		// Create mount point
 		//	sudo mkdir -m 000 /vol1
 		// Mount auto on reboot
 		//	sudo nano /etc/fstab
-		//	/dev/sdb    /vol1   auto    defaults     0        2
+		//	/dev/sdb1    /vol1   auto    defaults     0        2
 		// Mount now
 		//	sudo mount /vol1
 		
@@ -104,7 +111,7 @@ public class AddNewHardDriveInstaller extends AbstractOsInstaller {
 				+ "\n\n"
 				+ "============result of command: df -h (all in-used devices) ================\n"
 				+ dfResult
-				+ "\n\n========result of command: lshw -C disk (all disks)====================\n"
+						+ "\n\n========result of command: lsblk (all disks)====================\n"
 				+ cmdResult.getOkStr(),
 				false);
 		
