@@ -25,8 +25,8 @@ public class RemoteAgent {
 
     public static void main(String[] args) throws Exception {
         builder()
-                .appTitle("ULAB REMOTE AGENT")
-                .preferencesFolderName("ulab-remote-agent")
+                .appTitle("REMOTE AGENT")
+                .preferencesFolderName("remote-agent")
                 .useArialFont()
                 .addDefaultInstallers()
                 .stagingFolderOnRemoteServer("/tmp/staging")
